@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChangingWP / ExtraXYZ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .gallery {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .gallery video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .gallery video.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery">
+        <video src="WP/wp1.mp4" class="active" autoplay muted loop></video>
+        <video src="WP/wp2.mp4" muted loop></video>
+        <video src="WP/wp3.mp4" muted loop></video>
+    </div>
+
+    <script>
+        const videos = document.querySelectorAll('.gallery video');
+        let currentIndex = 0;
+
+        function changeVideo(direction) {
+            videos[currentIndex].classList.remove('active');
+            videos[currentIndex].pause();
+            currentIndex = (currentIndex + direction + videos.length) % videos.length;
+            videos[currentIndex].classList.add('active');
+            videos[currentIndex].play();
+        }
+
+        function autoChangeVideo() {
+            changeVideo(1);
+        }
+
+        setInterval(autoChangeVideo, 10000);
+    </script>
+</body>
+</html>
